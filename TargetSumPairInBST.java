@@ -107,7 +107,15 @@ public class TargetSumPairInBST {
         }
         travelAndPrint(root, node.right, target);
     }
-
+    
+    public static void tnf(Node node,ArrayList<Integer> list) {
+    	if(node == null) {
+    		return;
+    	}
+    	tnf(node.left,list);
+    	list.add(node.data);
+    	tnf(node.right,list);
+    }
 
   public static void main(String[] args) throws Exception {
     BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
@@ -126,6 +134,30 @@ public class TargetSumPairInBST {
 
     Node root = construct(arr);
     travelAndPrint(root,root,data);
+    
+    
+    ArrayList<Integer> list = new ArrayList<>();
+    tnf(root,list);
+    
+    int leftIndex = 0;
+    int rightIndex = list.size()-1;
+    
+    while(leftIndex<rightIndex) {
+    	int left = list.get(leftIndex);
+    	int right = list.get(rightIndex);
+    	if(left + right < data) {
+    		leftIndex++;
+    	}
+    	else if(left + right > data) {
+    		rightIndex++;
+    	}
+    	else {
+    		System.out.println(left + " "+ right);
+    		leftIndex++;
+    		rightIndex++;
+    	}
+    }
+    
   }
 
 }
